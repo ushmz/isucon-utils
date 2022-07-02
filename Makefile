@@ -4,6 +4,11 @@ restart_middleware:
 	sudo systemctl restart mysql
 	sudo systemctl restart nginx
 
+.PHONY: fetch_scripts
+fetch_scripts:
+	curl -O https://raw.githubusercontent.com/ushmz/isucon-utils/main/Makefile
+	curl -O https://raw.githubusercontent.com/ushmz/isucon-utils/main/scripts
+
 .PHONY: install_tools
 install_tools:
 	chmod +x ./scripts/install_tools.sh
@@ -11,6 +16,7 @@ install_tools:
 
 .PHONY: startup_all
 startup_all:
+	make fetch_scripts
 	make install_tools
 
 .PHONY: profile
