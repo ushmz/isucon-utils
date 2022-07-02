@@ -19,3 +19,8 @@ install_tools:
 .PHONY: startup_all
 startup_all:
 	make install_tools
+
+
+.PHONY: profile
+profile: access.log slow.log
+	./profile_slack.sh
