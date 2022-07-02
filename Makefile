@@ -6,7 +6,7 @@ restart_middleware:
 
 .PHONY: install_tools
 install_tools:
-	chmod +x /scripts/install_tools.sh
+	chmod +x ./scripts/install_tools.sh
 	./scripts/install_tools.sh
 
 .PHONY: startup_all
