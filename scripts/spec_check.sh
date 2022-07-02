@@ -12,6 +12,11 @@ cat /etc/issue
 deco "CPU"
 cat /proc/cpuinfo | grep -E 'cpu cores|siblings' | sort | uniq
 
+deco "Processor"
+dpkg --print-architecture
+uname -m
+
+
 # Memory
 # cat /proc/meminfo
 deco "Memory"

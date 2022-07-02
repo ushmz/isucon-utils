@@ -15,13 +15,15 @@ startup_all:
 
 .PHONY: check
 check:
-	chmod +x spec_check.sh
-	./spec_check.sh
+	chmod +x ./scripts/spec_check.sh
+	./scripts/spec_check.sh
 
 .PHONY: prepare
 prepare:
-	./prepare_bench.sh
+	chmod +x ./script/prepare_bench.sh
+	./script/prepare_bench.sh
 
 .PHONY: profile
 profile:
-	./profile.sh
+	chmod +x ./scripts/profile.sh
+	./scripts/profile.sh
