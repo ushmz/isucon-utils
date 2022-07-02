@@ -21,6 +21,11 @@ startup_all:
 	make install_tools
 
 
+.PHONY: prepare
+prepare:
+	./prepare_bench.sh
+
+
 .PHONY: profile
-profile: access.log slow.log
-	./profile_slack.sh
+profile:
+	./profile.sh
