@@ -13,11 +13,15 @@ install_tools:
 startup_all:
 	make install_tools
 
-.PHONY: profile
-profile: access.log slow.log
-	./profile_slack.sh
-
 .PHONY: check
 check:
 	chmod +x spec_check.sh
 	./spec_check.sh
+
+.PHONY: prepare
+prepare:
+	./prepare_bench.sh
+
+.PHONY: profile
+profile:
+	./profile.sh
