@@ -16,11 +16,11 @@ install_all_tools() {
     info "-------------------------------------"
     info "Installing pt-query-digest..."
     info "-------------------------------------"
-        
+
     install_pt_query_digest
     install_alp
     install_netdata
-    
+
     # newrelicは鍵が必要なので，サーバー内でコマンド打つのが早い
     info "If you want to install newrelic, check below"
     echo "https://one.newrelic.com/marketplace?account=2818904&duration=1800000&state=8b55894e-b91c-dc0e-34f1-ca0c4b96d910"
