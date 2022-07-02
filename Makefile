@@ -16,3 +16,8 @@ startup_all:
 .PHONY: profile
 profile: access.log slow.log
 	./profile_slack.sh
+
+.PHONY: check
+check:
+	chmod +x spec_check.sh
+	./spec_check.sh
