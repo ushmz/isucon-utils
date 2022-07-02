@@ -2,7 +2,7 @@
 restart_middleware:
 	echo "Restarting MySQL and Nginx..."
 	sudo systemctl restart mysql
-	sudo systemctl restrt nginx
+	sudo systemctl restart nginx
 
 .PHONY: install_tools
 install_tools:
