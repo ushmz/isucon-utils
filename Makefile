@@ -18,4 +18,4 @@ install_tools:
 
 .PHONY: startup_all
 startup_all:
-	install_tools
+	make install_tools
