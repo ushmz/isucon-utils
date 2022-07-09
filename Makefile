@@ -20,10 +20,10 @@ check:
 
 .PHONY: prepare
 prepare:
-	chmod +x ./script/prepare_bench.sh
-	./script/prepare_bench.sh
+	chmod +x ./script/prepare_bench.darwin.sh
+	./script/prepare_bench.darwin.sh
 
 .PHONY: profile
 profile:
-	chmod +x ./scripts/profile.sh
-	./scripts/profile.sh
+	chmod +x ./scripts/profile.darwin.sh
+	./scripts/profile.darwin.sh

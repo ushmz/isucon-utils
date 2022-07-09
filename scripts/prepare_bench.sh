@@ -3,11 +3,11 @@ set -Ce
 
 # Cleat cache
 sync; sync; sync;
-echo 3 > /proc/sys/vm/drop_caches
+sudo sh -c "echo 3 > /proc/sys/vm/drop_caches"
 
 # Load `/etc/sysctl.conf`
-sysctl -p
-systemctl daemon-reload
+sudo sysctl -p
+sudo systemctl daemon-reload
 
 # Restart services
 sudo rm -f /var/log/mysql/slow.log && sudo systemctl restart mysql
