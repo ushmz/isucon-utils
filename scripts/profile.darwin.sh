@@ -57,7 +57,7 @@ function send_profile_result() {
                 \"type\": \"section\",
                 \"text\": {
                     \"type\": \"mrkdwn\",
-                    \"text\": \"<$1|Issue on Github>\"
+                    \"text\": \"$1\"
                 }
             },
             {
@@ -72,7 +72,7 @@ function send_profile_result() {
                 \"type\": \"section\",
                 \"text\": {
                     \"type\": \"mrkdwn\",
-                    \"text\": \"<$2|Issue on Github>\"
+                    \"text\": \"$2\"
                 }
             }
         ]
