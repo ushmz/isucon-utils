@@ -22,7 +22,7 @@ do
 done
 
 # Declare file names and create directory
-dir_name=`date +%H%M%S`
+dir_name=`date +%m%d-%H%M%S`
 mkdir -p "log/$dir_name"
 
 access_file="log/${dir_name}/access.log"
@@ -85,10 +85,7 @@ function send_profile_result() {
 }
 
 # Profile access log with "alp"
-echo "\`\`\`\n" > b
-cat $access_file | alp ltsv >> b
-echo "\n\`\`\`" >> b
-export msg=$(cat b)
+export msg=$(cat $access_file | alp ltsv -r --format md --query-string | head -n100)
 # Create issue on "ushmz/isucon-utils"
 alp_url=`gh issue create --title "alp@$(date +%H:%M)" --body "$msg"`
 
