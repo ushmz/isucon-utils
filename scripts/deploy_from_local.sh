@@ -29,7 +29,7 @@ for server in isu01 isu02; do
     # https://qiita.com/catatsuy/items/66aa402cbb4c9cffe66b
     # rsync -vau ../sql/ $server:"$DEPLOY_SQL_TARGET_DIR"
     # TODO: 必要であれば他middlewareの設定も同期させる
-    # ssh -t $server "sudo systemctl start $SERVICE_NAME"
+    ssh -t $server "sudo systemctl start $SERVICE_NAME"
 
     success "Successfully deployed to ${server}!"
 done
