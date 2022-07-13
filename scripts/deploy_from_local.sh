@@ -25,11 +25,11 @@ for server in isu01 isu02; do
     info "Start deploy to ${server}..."
 
     ssh -t $server "sudo systemctl stop $SERVICE_NAME"
-    scp ./main_linux $server:"$DEPLOY_APP_TARGET_DIR"
+    scp "./webapp/go/$APP_NAME" $server:"$DEPLOY_APP_TARGET_DIR"
     # https://qiita.com/catatsuy/items/66aa402cbb4c9cffe66b
-    rsync -vau ../sql/ $server:"$DEPLOY_SQL_TARGET_DIR"
+    # rsync -vau ../sql/ $server:"$DEPLOY_SQL_TARGET_DIR"
     # TODO: 必要であれば他middlewareの設定も同期させる
-    ssh -t $server "sudo systemctl start $SERVICE_NAME"
+    # ssh -t $server "sudo systemctl start $SERVICE_NAME"
 
     success "Successfully deployed to ${server}!"
 done
