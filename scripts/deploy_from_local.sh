@@ -25,7 +25,7 @@ for server in isu01 isu02; do
     info "Start deploy to ${server}..."
 
     ssh -t $server "sudo systemctl stop $SERVICE_NAME"
-    scp "./webapp/go/$APP_NAME" $server:"$DEPLOY_APP_TARGET_DIR"
+    scp "$BINARY_PATH" $server:"$DEPLOY_APP_TARGET_DIR"
     # https://qiita.com/catatsuy/items/66aa402cbb4c9cffe66b
     # rsync -vau ../sql/ $server:"$DEPLOY_SQL_TARGET_DIR"
     # TODO: 必要であれば他middlewareの設定も同期させる
