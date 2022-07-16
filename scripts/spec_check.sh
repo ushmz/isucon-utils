@@ -25,3 +25,7 @@ free -h
 # Disk
 deco "Disk"
 df -h
+
+# Golang
+deco "Go"
+go --version
