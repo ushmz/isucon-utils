@@ -2,12 +2,16 @@
 set -Ce
 
 if [[ -z "$1" ]]; then
-    echo "Target host is not specified. Please setup \"~/.ssh/config\" and pass host name as 1st argument."
+    echo "Access log target is not specified!!"
+    echo "Target host is not specified. Please setup \"~/.ssh/config\" and pass username and host name as 1st argument."
+    echo "\t${username}@${hostname}"
     exit 0
 fi
 
 if [[ -z "$2" ]]; then
-    echo "Target username is not specified. Please setup \"~/.ssh/config\" and pass username as 2nd argument."
+    echo "Mysql slow query log target is not specified!!"
+    echo "Target host is not specified. Please setup \"~/.ssh/config\" and pass username and host name as 1st argument."
+    echo "\t${username}@${hostname}"
     exit 0
 fi
 
@@ -33,11 +37,11 @@ slow_file="log/${dir_name}/slow.log"
 # scp $1:/var/log/mysql/slow.log $slow_file
 
 # If above doesn't work...
-ssh -t $1 "sudo cp /var/log/nginx/access.log ~/access.log; sudo chown $2:$2 ~/access.log"
+ssh -t $1 "sudo cp /var/log/nginx/access.log ~/access.log"
 scp $1:~/access.log $access_file
 
-ssh -t $1 "sudo cp /var/log/mysql/slow.log ~/slow.log; sudo chown $2:$2 ~/slow.log"
-scp $1:~/slow.log $slow_file
+ssh -t $2 "sudo cp /var/log/mysql/slow.log ~/slow.log"
+scp $2:~/slow.log $slow_file
 
 
 # Post results to slack
