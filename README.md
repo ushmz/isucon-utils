@@ -14,32 +14,34 @@ watch -d -n 1 vmstat -n -w
 
 ## ベンチ準備
 
-**scripts/prepare_bench.sh**
+```sh
+make prepare
+```
 
-- [ ] 競技用 app を git 経由でデプロイしている場合，ディレクトリ構成に合わせて変更する．
+- [ ] 競技用 app のディレクトリ構成・配置位置に合わせて変更する．
 - [ ] 競技用 app の起動方法に合わせて再起動方法を変更する．
       もしくは `APP_NAME=isucari sh prepare_bench.sh`のように実行時に渡してもよい．
 
-```sh
+```Makefile
 # Update application code
 # [TODO] : 当日のディレクトリ構成に応じて変更
-cd "$HOME/$APP_NAME"
-git pull origin main
-
-# Update application binary
-# [TODO] : 当日のディレクトリ構成に応じて変更
-cd webapp/go
-go build -o $APP_NAME ./main.go
+scp-app:
+	scp ./webapp/go/${APPNAME} ${APP}:~/webapp/go/${APPNAME}
+	wait
 
 # Restart application
 # [TODO] : 当日のアプリケーション起動方法に応じて変更
-sudo systemctl restart ${APP_NAME}.go
+restart-app:
+	ssh ${APP} "sudo systemctl restart ${APPNAME}.go"
+	wait
 
 ```
 
 ## プロファイリング
 
-**scripts/profile.darwin.sh**
+```sh
+make profile
+```
 
 - [ ] 一度ベンチを回してみて，まとめても良さそうな URL があればオプションを追加する．
       alp は `-m` オプションで URL を正規表現でまとめられる．
