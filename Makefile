@@ -79,4 +79,4 @@ profile:
 	sh scripts/profile.darwin.sh ${NGINX} ${DB}
 
 .PHONY: prepare
-prepare: drop-cache restart-nginx restart-db
+prepare: drop-cache deploy-app deploy-nginx deploy-db
