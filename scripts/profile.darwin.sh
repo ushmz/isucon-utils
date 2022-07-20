@@ -33,10 +33,6 @@ access_file="log/${dir_name}/access.log"
 slow_file="log/${dir_name}/slow.log"
 
 # Fetch logs
-# scp $1:/var/log/nginx/access.log $access_file
-# scp $1:/var/log/mysql/slow.log $slow_file
-
-# If above doesn't work...
 ssh -t $1 "sudo cp /var/log/nginx/access.log ~/access.log"
 scp $1:~/access.log $access_file
 
@@ -50,10 +46,10 @@ function send_profile_result() {
     {
         \"blocks\": [
             {
-                \"type\": \"header\",
+                \"type\": \"section\",
                 \"text\": {
                     \"type\": \"plain_text\",
-                    \"text\": \"alp result \",
+                    \"text\": \"計測結果が更新されました \",
                     \"emoji\": true
                 }
             },
@@ -64,21 +60,6 @@ function send_profile_result() {
                     \"text\": \"$1\"
                 }
             },
-            {
-                \"type\": \"header\",
-                \"text\": {
-                    \"type\": \"plain_text\",
-                    \"text\": \"pt-query-digest result \",
-                    \"emoji\": true
-                }
-            },
-            {
-                \"type\": \"section\",
-                \"text\": {
-                    \"type\": \"mrkdwn\",
-                    \"text\": \"$2\"
-                }
-            }
         ]
     }
     "
@@ -89,20 +70,25 @@ function send_profile_result() {
 }
 
 # Profile access log with "alp"
-export msg=$(cat $access_file | alp ltsv -r --format md --query-string | head -n100)
-# Create issue on "ushmz/isucon-utils"
-alp_url=`gh issue create --title "alp@$(date +%H:%M)" --body "$msg"`
+printf "### alp\n" >| alpmsg
+cat $access_file | alp ltsv -r --format md --query-string -m '/api/condition/*','/api/isu/[0-9a-zA-Z\-]+','/isu/[0-9a-zA-Z\-]','/\?jwt=.*' | head -n20 >> alpmsg
+printf "\n" >> alpmsg
 
 # Profile slow log with "pt-query-digest"
-echo "\`\`\`\n" >| b
-pt-query-digest $slow_file >> b
-echo "\n\`\`\`" >> b
-export msg=$(cat b)
-# Create issue on "ushmz/isucon-utils"
-ptd_url=`gh issue create --title "pt-query-digest@$(date +%H:%M)" --body "$msg"`
+printf "\n### qt-query-digest\n\`\`\`\n" >| ptqmsg
+pt-query-digest $slow_file >> ptqmsg
+printf "\n\`\`\`" >> ptqmsg
+
+if [[ "$(cat ./.dest)" == "" ]]; then
+    # Create issue on "ushmz/isucon-utils"
+    url=`gh issue create --title "計測記録" --body "$(cat alpmsg)$(cat ptqmsg)"`
+    echo $url > ./.dest
+else
+    url=`gh issue comment "$(cat ./.dest)" --body "$(cat alpmsg)$(cat ptqmsg)"`
+fi
 
 # Stinky code
-rm -f b
+rm -f alpmsg ptqmsg
 
 # Send issue link to slack
-send_profile_result "$alp_url" "$ptd_url"
+send_profile_result "$url"
