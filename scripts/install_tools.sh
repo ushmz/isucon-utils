@@ -19,7 +19,6 @@ install_all_tools() {
 
     install_pt_query_digest
     install_alp
-    install_netdata
 
     # newrelicは鍵が必要なので，サーバー内でコマンド打つのが早い
     info "If you want to install newrelic, check below"
@@ -34,13 +33,6 @@ install_pt_query_digest() {
     info "Installing pt-query-digest..."
     sudo apt-get install percona-toolkit
     success "Successfully installed pt-query-digest!"
-}
-
-install_netdata() {
-    info "Installing netdata..."
-    wget -O /tmp/netdata-kickstart.sh https://my-netdata.io/kickstart.sh
-    sh /tmp/netdata-kickstart.sh
-    success "Successfully installed netdata!"
 }
 
 install_alp() {
